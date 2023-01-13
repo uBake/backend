@@ -1,0 +1,6 @@
+{
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "vsicons.presets.nestjs": true,
+  "vsicons.presets.angular": false
+}
