@@ -3,13 +3,13 @@ import { CreateIngridientDto } from './dto/create-ingridient.dto';
 import { UpdateIngridientDto } from './dto/update-ingridient.dto';
 
 @Injectable()
-export class IngridientsService {
+export class IngridientService {
   create(createIngridientDto: CreateIngridientDto) {
     return 'This action adds a new ingridient';
   }
 
   findAll() {
-    return `This action returns all ingridients`;
+    return `This action returns all ingridient`;
   }
 
   findOne(id: number) {

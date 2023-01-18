@@ -1,34 +1,34 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { IngridientsService } from './ingridients.service';
+import { IngridientService } from './ingridient.service';
 import { CreateIngridientDto } from './dto/create-ingridient.dto';
 import { UpdateIngridientDto } from './dto/update-ingridient.dto';
 
-@Controller('ingridients')
-export class IngridientsController {
-  constructor(private readonly ingridientsService: IngridientsService) {}
+@Controller('ingridient')
+export class IngridientController {
+  constructor(private readonly ingridientService: IngridientService) {}
 
   @Post()
   create(@Body() createIngridientDto: CreateIngridientDto) {
-    return this.ingridientsService.create(createIngridientDto);
+    return this.ingridientService.create(createIngridientDto);
   }
 
   @Get()
   findAll() {
-    return this.ingridientsService.findAll();
+    return this.ingridientService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.ingridientsService.findOne(+id);
+    return this.ingridientService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateIngridientDto: UpdateIngridientDto) {
-    return this.ingridientsService.update(+id, updateIngridientDto);
+    return this.ingridientService.update(+id, updateIngridientDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.ingridientsService.remove(+id);
+    return this.ingridientService.remove(+id);
   }
 }
