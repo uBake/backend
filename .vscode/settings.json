@@ -2,5 +2,10 @@
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "vsicons.presets.nestjs": true,
-  "vsicons.presets.angular": false
+  "vsicons.presets.angular": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true,
+    "source.fixAll.eslint": true
+  }
 }
