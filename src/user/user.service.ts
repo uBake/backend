@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import * as bcrypt from 'bcryptjs';
+import { ROLES_KEY } from '../auth/roles-auth.decorator';
 import { RoleService } from '../role/role.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';
@@ -21,7 +22,7 @@ export class UserService {
         phone: '00000000000',
       });
       const role = await this.roleService.findOneByValue('USER');
-      await user.$set('roles', [role.id]);
+      await user.$set(ROLES_KEY, [role.id]);
       user.roles = [role];
       return user;
     } catch (e) {

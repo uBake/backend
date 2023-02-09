@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { ValidateUserDto } from 'src/user/dto/validate-user.dto';
@@ -50,9 +55,6 @@ export class AuthService {
     if (user && passwordEquals) {
       return user;
     }
-    throw new HttpException(
-      'Invalid email or password',
-      HttpStatus.UNAUTHORIZED,
-    );
+    throw new UnauthorizedException('Invalid email or password');
   }
 }
