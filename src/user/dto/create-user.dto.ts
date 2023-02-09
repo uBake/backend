@@ -16,14 +16,4 @@ export class CreateUserDto {
     description: 'User name',
   })
   readonly name: string;
-  @ApiProperty({
-    example: 'nickname',
-    description: 'Unique nickname',
-  })
-  readonly nickname: string;
-  @ApiProperty({
-    example: '3329250464',
-    description: 'Unique phone',
-  })
-  readonly phone: string;
 }

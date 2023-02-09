@@ -1,20 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { BakeryModule } from './bakery/bakery.module';
-import { BudgetChangeModule } from './budget-change/budget-change.module';
-import { BudgetModule } from './budget/budget.module';
-import { EventModule } from './event/event.module';
-import { IngridientModule } from './ingridient/ingridient.module';
-import { OrderTypeModule } from './order-type/order-type.module';
-import { OrderModule } from './order/order.module';
+import { AuthModule } from './auth/auth.module';
 import { Role } from './role/role.model';
 import { RoleModule } from './role/role.module';
 import { UserRoles } from './role/user-roles.model';
-import { TimeslotModule } from './timeslot/timeslot.module';
 import { User } from './user/user.model';
 import { UsersModule } from './user/user.module';
-import { WarehouseModule } from './warehouse/warehouse.module';
 
 @Module({
   imports: [
@@ -31,17 +23,9 @@ import { WarehouseModule } from './warehouse/warehouse.module';
       models: [User, Role, UserRoles],
       autoLoadModels: true,
     }),
-    OrderModule,
-    OrderTypeModule,
-    IngridientModule,
-    EventModule,
-    BakeryModule,
-    TimeslotModule,
-    WarehouseModule,
-    BudgetModule,
-    BudgetChangeModule,
     UsersModule,
     RoleModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import * as bcrypt from 'bcryptjs';
 import { RoleService } from '../role/role.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.model';
 
 @Injectable()
@@ -13,10 +13,20 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const user = await this.userRepository.create(createUserDto);
-    const role = await this.roleService.findOneByValue('USER');
-    await user.$set('roles', [role.id]);
-    return user;
+    try {
+      const nickname = await bcrypt.hash(createUserDto.email, 5);
+      const user = await this.userRepository.create({
+        ...createUserDto,
+        nickname,
+        phone: '00000000000',
+      });
+      const role = await this.roleService.findOneByValue('USER');
+      await user.$set('roles', [role.id]);
+      user.roles = [role];
+      return user;
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   async findAll() {
@@ -24,15 +34,13 @@ export class UserService {
     return users;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async findOneByEmail(email: string) {
+    const user = await this.userRepository.findOne({
+      where: {
+        email,
+      },
+      include: { all: true },
+    });
+    return user;
   }
 }

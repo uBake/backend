@@ -6,13 +6,15 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Role } from 'src/role/role.model';
-import { UserRoles } from 'src/role/user-roles.model';
+import { Role } from '../role/role.model';
+import { UserRoles } from '../role/user-roles.model';
 
 interface UserCreationAttrs {
   name: string;
   email: string;
   password: string;
+  nickname: string;
+  phone: string;
 }
 
 @Table({ tableName: 'users' })
@@ -43,13 +45,13 @@ export class User extends Model<User, UserCreationAttrs> {
 
   @ApiProperty({
     example: '3329250464',
-    description: 'Unique phone',
+    description: 'User phone',
   })
   @Column({
     type: DataType.STRING,
     primaryKey: true,
-    unique: true,
     allowNull: false,
+    defaultValue: '00000000000',
   })
   phone: string;
 
