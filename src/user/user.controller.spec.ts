@@ -1,25 +1,25 @@
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ModuleMocker } from 'jest-mock';
-import { UsersController } from './users.controller';
-import { User } from './users.model';
-import { UsersService } from './users.service';
+import { UserController } from './user.controller';
+import { User } from './user.model';
+import { UserService } from './user.service';
 
 const moduleMocker = new ModuleMocker(global);
 
-describe('UsersController', () => {
-  let controller: UsersController;
-  let service: UsersService;
+describe('UserController', () => {
+  let controller: UserController;
+  let service: UserService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [UsersController],
-      providers: [UsersService],
+      controllers: [UserController],
+      providers: [UserService],
       imports: [SequelizeModule],
     }).compile();
 
-    controller = module.get<UsersController>(UsersController);
-    service = module.get<UsersService>(UsersService);
+    controller = module.get<UserController>(UserController);
+    service = module.get<UserService>(UserService);
   });
 
   describe('findAll', () => {

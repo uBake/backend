@@ -8,9 +8,12 @@ import { EventModule } from './event/event.module';
 import { IngridientModule } from './ingridient/ingridient.module';
 import { OrderTypeModule } from './order-type/order-type.module';
 import { OrderModule } from './order/order.module';
+import { Role } from './role/role.model';
+import { RoleModule } from './role/role.module';
+import { UserRoles } from './role/user-roles.model';
 import { TimeslotModule } from './timeslot/timeslot.module';
-import { User } from './users/users.model';
-import { UsersModule } from './users/users.module';
+import { User } from './user/user.model';
+import { UsersModule } from './user/user.module';
 import { WarehouseModule } from './warehouse/warehouse.module';
 
 @Module({
@@ -25,7 +28,7 @@ import { WarehouseModule } from './warehouse/warehouse.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User],
+      models: [User, Role, UserRoles],
       autoLoadModels: true,
     }),
     OrderModule,
@@ -38,6 +41,7 @@ import { WarehouseModule } from './warehouse/warehouse.module';
     BudgetModule,
     BudgetChangeModule,
     UsersModule,
+    RoleModule,
   ],
 })
 export class AppModule {}

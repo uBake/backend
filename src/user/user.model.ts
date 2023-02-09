@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import {
+  BelongsToMany,
+  Column,
+  DataType,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Role } from 'src/role/role.model';
+import { UserRoles } from 'src/role/user-roles.model';
 
 interface UserCreationAttrs {
   name: string;
@@ -78,4 +86,19 @@ export class User extends Model<User, UserCreationAttrs> {
     allowNull: false,
   })
   password: string;
+
+  @ApiProperty({
+    example: false,
+    description: 'Is user logged in on some device',
+  })
+  @Column({
+    type: DataType.BOOLEAN,
+    primaryKey: true,
+    allowNull: false,
+    defaultValue: false,
+  })
+  isLoggedIn: boolean;
+
+  @BelongsToMany(() => Role, () => UserRoles)
+  roles: Role[];
 }
