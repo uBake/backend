@@ -37,7 +37,6 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   @Column({
     type: DataType.STRING,
-    primaryKey: true,
     unique: true,
     allowNull: false,
   })
@@ -49,7 +48,6 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   @Column({
     type: DataType.STRING,
-    primaryKey: true,
     allowNull: false,
     defaultValue: '00000000000',
   })
@@ -61,7 +59,6 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   @Column({
     type: DataType.STRING,
-    primaryKey: true,
     allowNull: false,
   })
   name: string;
@@ -72,7 +69,6 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   @Column({
     type: DataType.STRING,
-    primaryKey: true,
     unique: true,
     allowNull: false,
   })
@@ -84,7 +80,6 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   @Column({
     type: DataType.STRING,
-    primaryKey: true,
     allowNull: false,
   })
   password: string;
@@ -95,11 +90,31 @@ export class User extends Model<User, UserCreationAttrs> {
   })
   @Column({
     type: DataType.BOOLEAN,
-    primaryKey: true,
     allowNull: false,
     defaultValue: false,
   })
   isLoggedIn: boolean;
+
+  @ApiProperty({
+    example: false,
+    description: 'Is user banned by any admin',
+  })
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  })
+  isBanned: boolean;
+
+  @ApiProperty({
+    example: 'Such a bad user',
+    description: 'If user banned, there should be a reason',
+  })
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: '',
+  })
+  banReason;
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
