@@ -9,6 +9,7 @@ export class CreateUserDto {
   @IsString({ message: 'Must be a string' })
   @IsEmail({}, { message: 'Incorrect email' })
   readonly email: string;
+
   @ApiProperty({
     example: 'password',
     description: 'User password',
@@ -19,6 +20,7 @@ export class CreateUserDto {
       'Password must be at least 8 characters long and not longer than 35 characters',
   })
   readonly password: string;
+
   @ApiProperty({
     example: 'Name Surname',
     description: 'User name',
