@@ -1,15 +1,6 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
 import { Role } from './role.model';
 import { RoleService } from './role.service';
 
@@ -64,15 +55,5 @@ export class RoleController {
   @Get(':value')
   findOneByValue(@Param('value') value: string) {
     return this.roleService.findOneByValue(value);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDto: UpdateRoleDto) {
-    return this.roleService.update(+id, updateDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.roleService.remove(+id);
   }
 }

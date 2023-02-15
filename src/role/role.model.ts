@@ -6,6 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
+import { ROLE_ADMIN } from '../user/const';
 import { User } from '../user/user.model';
 import { UserRoles } from './user-roles.model';
 
@@ -29,7 +30,7 @@ export class Role extends Model<Role, RoleCreationAttrs> {
   id: number;
 
   @ApiProperty({
-    example: 'ADMIN',
+    example: ROLE_ADMIN,
     description: 'Unique user role',
   })
   @Column({

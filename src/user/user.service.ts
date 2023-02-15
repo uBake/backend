@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import * as bcrypt from 'bcryptjs';
 import { ROLES_KEY } from '../auth/roles-auth.decorator';
 import { RoleService } from '../role/role.service';
+import { ROLE_USER } from './const';
 import { AddRoleDto } from './dto/add-role-dto';
 import { BanUserDto } from './dto/ban-user-dto';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,13 +18,16 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     try {
-      const nickname = await bcrypt.hash(createUserDto.email, 5);
+      const nickname = await bcrypt.hash(
+        createUserDto.email,
+        Number(process.env.SALT_ROUNDS) || 5,
+      );
       const user = await this.userRepository.create({
         ...createUserDto,
         nickname,
         phone: '00000000000',
       });
-      const role = await this.roleService.findOneByValue('USER');
+      const role = await this.roleService.findOneByValue(ROLE_USER);
       await user.$set(ROLES_KEY, [role.id]);
       user.roles = [role];
       return user;

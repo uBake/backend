@@ -10,6 +10,7 @@ import { ValidateUserDto } from 'src/user/dto/validate-user.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';
+import { LoginAuthDto } from './dto/login-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async login(userDto: CreateUserDto) {
+  async login(userDto: LoginAuthDto) {
     const user = await this.validateUser(userDto);
     return this.generateToken(user);
   }
@@ -31,10 +32,10 @@ export class AuthService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    const hashPassword = await bcrypt.hash(userDto.password, 5);
+    const password = await bcrypt.hash(userDto.password, 5);
     const user = await this.userService.create({
       ...userDto,
-      password: hashPassword,
+      password,
     });
     return this.generateToken(user);
   }

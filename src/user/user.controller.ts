@@ -2,6 +2,7 @@ import { Body, Controller, Get, Patch, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Roles } from '../auth/roles-auth.decorator';
 import { RolesGuard } from '../auth/roles.guard';
+import { ROLE_ADMIN } from './const';
 import { AddRoleDto } from './dto/add-role-dto';
 import { BanUserDto } from './dto/ban-user-dto';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -43,7 +44,7 @@ export class UserController {
     status: 200,
     type: [User],
   })
-  @Roles('ADMIN')
+  @Roles(ROLE_ADMIN)
   @UseGuards(RolesGuard)
   @Get()
   findAll() {
@@ -57,7 +58,7 @@ export class UserController {
     status: 200,
     type: AddRoleDto,
   })
-  @Roles('ADMIN')
+  @Roles(ROLE_ADMIN)
   @UseGuards(RolesGuard)
   @Patch('/role')
   addRole(@Body() dto: AddRoleDto) {
@@ -71,7 +72,7 @@ export class UserController {
     status: 200,
     type: User,
   })
-  @Roles('ADMIN')
+  @Roles(ROLE_ADMIN)
   @UseGuards(RolesGuard)
   @Patch('/ban')
   ban(@Body() dto: BanUserDto) {
