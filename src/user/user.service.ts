@@ -22,9 +22,11 @@ export class UserService {
         createUserDto.email,
         Number(process.env.SALT_ROUNDS) || 5,
       );
+      const password = await bcrypt.hash(createUserDto.password, 5);
       const user = await this.userRepository.create({
         ...createUserDto,
         nickname,
+        password,
         phone: '00000000000',
       });
       const role = await this.roleService.findOneByValue(ROLE_USER);

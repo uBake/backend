@@ -23,16 +23,20 @@ export class RolesGuard implements CanActivate {
         ROLES_KEY,
         [context.getHandler(), context.getClass()],
       );
+
       if (!requiredRoles) {
         return true;
       }
+
       const request = context.switchToHttp().getRequest();
       const authHeader = request.headers.authorization.split(' ');
       const bearer = authHeader[0];
       const token = authHeader[1];
+
       if (bearer !== 'Bearer' || !token) {
         throw new UnauthorizedException({ message: 'User is not authorized' });
       }
+
       const user = this.jwtService.verify(token);
       request.user = user;
       return user.roles.some((role) => requiredRoles.includes(role.value));

@@ -10,7 +10,6 @@ import { ValidateUserDto } from 'src/user/dto/validate-user.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';
-import { LoginAuthDto } from './dto/login-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -19,24 +18,22 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async login(userDto: LoginAuthDto) {
+  async login(userDto: ValidateUserDto) {
     const user = await this.validateUser(userDto);
     return this.generateToken(user);
   }
 
   async registration(userDto: CreateUserDto) {
     const candidate = await this.userService.findOneByEmail(userDto.email);
+
     if (candidate) {
       throw new HttpException(
         'User with this email already exists',
         HttpStatus.BAD_REQUEST,
       );
     }
-    const password = await bcrypt.hash(userDto.password, 5);
-    const user = await this.userService.create({
-      ...userDto,
-      password,
-    });
+
+    const user = await this.userService.create(userDto);
     return this.generateToken(user);
   }
 
